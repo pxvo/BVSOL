@@ -1,0 +1,236 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #ff8c00;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.logo img {
+    height: 60px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav li {
+    margin-left: 30px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #fff5ee;
+}
+
+.login a {
+    color: white;
+    text-decoration: none;
+    border: 2px solid white;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.login a:hover {
+    background-color: #ffffff;
+    color: #ff8c00;
+    border-color: #ffffff;
+}
+
+.hero {
+    background: linear-gradient(to bottom, #ff8c00, #f4a460);
+    padding: 120px 20px;
+    text-align: center;
+    color: white;
+}
+
+.hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 25px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.bvsol-text {
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.hero p {
+    font-size: 1.2em;
+    line-height: 1.7;
+    margin-bottom: 35px;
+    opacity: 0.9;
+}
+
+.form-orcamento {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    backdrop-filter: blur(5px);
+}
+
+.form-orcamento input {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;
+    max-width: 450px;
+    transition: box-shadow 0.3s ease;
+}
+
+.form-orcamento input:focus {
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.form-orcamento button {
+    background-color: #000;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 600;
+    width: 100%;
+    max-width: 450px;
+}
+
+.form-orcamento button:hover {
+    background-color: rgb(5, 28, 82);
+    transform: translateY(-2px);
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    background-color: #333;
+    color: white;
+    margin-top: 60px;
+}
+
+nav a:hover {
+    color: #fff5ee;
+}
+
+nav a span {
+    transition: color 0.3s ease;
+}
+
+nav a:hover span {
+    color: rgb(5, 28, 82);
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    nav li {
+        margin-left: 0;
+        margin-top: 15px;
+    }
+    .hero h1 {
+        font-size: 2.5em;
+    }
+    .hero p {
+        font-size: 1.1em;
+    }
+    .form-orcamento {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 80px 20px;
+    }
+    .hero h1 {
+        font-size: 2em;
+    }
+    .form-orcamento input,
+    .form-orcamento button {
+        padding: 12px;
+        font-size: 1em;
+    }
+    .login a {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    nav li {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .logo img {
+        height: 50px;
+    }
+    .hero {
+        padding: 100px 20px;
+    }
+    .hero h1 {
+        font-size: 2.5em;
+    }
+    .hero p {
+        font-size: 1.1em;
+    }
+    .form-orcamento {
+        width: 95%;
+    }
+    .form-orcamento input,
+    .form-orcamento button {
+        width: 100%;
+        max-width: 100%;
+    }
+    footer {
+        font-size: 0.9em;
+    }
+}
