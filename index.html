@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <header>
@@ -17,9 +18,9 @@
         <nav>
             <ul>
                 <li><a href="#"><span>Início</span></a></li>
-                <li><a href="#"><span>Contato</span></a></li>
-                <li><a href="#"><span>Serviços</span></a></li>
-                <li><a href="#"><span>Sobre</span></a></li>
+                <li><a href="#contato"><span>Contato</span></a></li>
+                <li><a href="#servicos"><span>Serviços</span></a></li>
+                <li><a href="#sobre">Sobre</a></li>
             </ul>
         </nav>
         <div class="login">
@@ -29,17 +30,50 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Faça seu orçamento!<span class="bvsol-text">com a BV SOL.</span></h1>
+            <h1>Solicite seu orçamento<span class="bvsol-text"> com a BVSOL!</span></h1>
             <p>Transforme sua energia em economia com a BV SOL. Solicite seu orçamento e descubra como a energia solar pode beneficiar você!</p>
             <form class="form-orcamento">
                 <input type="text" placeholder="Nome Completo">
                 <input type="tel" placeholder="Número de Telefone">
                 <button type="submit">Solicitar Orçamento ></button>
             </form>
+            <a href="#servicos" class="scroll-down">Ver Serviços</a>
         </div>
     </section>
 
-    <footer>
+    <section id="servicos" class="servicos">
+        <h2>Nossos Serviços</h2>
+        <div class="servicos-lista">
+            <div class="servico-item">
+                <h3>Instalação de Sistemas</h3>
+                <p>Instalação de sistemas de energia solar personalizados.</p>
+            </div>
+            <div class="servico-item">
+                <h3>Manutenção</h3>
+                <p>Serviços de manutenção para garantir o funcionamento ideal do seu sistema.</p>
+            </div>
+            <div class="servico-item">
+                <h3>Consultoria</h3>
+                <p>Consultoria especializada para encontrar a melhor solução para você.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="depoimentos" class="depoimentos">
+        <h2>Depoimentos de Clientes</h2>
+        <div class="depoimentos-lista">
+            <div class="depoimento-item">
+                <p>"Ótimo serviço! Recomendo a BV SOL."</p>
+                <p>- João Silva</p>
+            </div>
+            <div class="depoimento-item">
+                <p>"Excelente atendimento e suporte."</p>
+                <p>- Maria Oliveira</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contato">
         <p>© 2024 BV SOL Energia Solar. Todos os direitos reservados.</p>
     </footer>
 

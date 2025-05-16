@@ -1,5 +1,5 @@
-body {
-    font-family: 'Poppins', sans-serif;
+   body {
+   font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
@@ -48,7 +48,6 @@ nav a:hover {
 .login a {
     color: white;
     text-decoration: none;
-    border: 2px solid white;
     padding: 10px 25px;
     border-radius: 5px;
     font-weight: 600;
