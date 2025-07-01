@@ -670,3 +670,77 @@ nav a:hover span {
   height: 24px;
   margin-right: 10px;
 }  
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .logo img {
+    height: 50px;
+    margin-bottom: 10px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  nav li {
+    margin-left: 0;
+  }
+
+  .login {
+    margin-top: 10px;
+  }
+
+  .hero {
+    padding: 60px 20px;
+  }
+
+  .hero h1 {
+    font-size: 2em;
+  }
+
+  .hero p {
+    font-size: 1em;
+  }
+
+  .botao-whatsapp {
+    font-size: 1em;
+    padding: 12px 20px;
+  }
+
+  .ajuda-cards,
+  .servicos-lista,
+  .depoimentos-lista,
+  .faq-lista {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ajuda-card,
+  .servico-item,
+  .depoimento-item,
+  .faq-item {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .rodape-conteudo {
+    flex-direction: column;
+    padding: 0 20px 40px;
+  }
+
+  .coluna {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .social-icons {
+    justify-content: flex-start;
+  }
+}
