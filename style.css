@@ -169,15 +169,6 @@ nav a:hover {
     transform: translateY(-2px);
 }
 
-footer {
-    text-align: center;
-    padding: 25px;
-    background-color: #333;
-    color: white;
-    margin-top: 60px;
-    font-size: 0.9em;
-}
-
 nav a:hover {
     color: #fff5ee;
 }
@@ -596,4 +587,68 @@ nav a:hover span {
 .hero-content {
     position: relative;
     z-index: 1;
+}
+.rodape {
+    background-color: #fb9b2a;
+    color: white;
+    width: 200%;
+    transform: translateX(-25%);
+    padding-top: 40px;
+    padding-bottom: 0;
+    margin: 0;
+}
+
+.rodape-conteudo {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 5% 40px;
+    box-sizing: border-box;
+}
+
+
+.coluna {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 20px;
+}
+
+.coluna h3 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: white;
+}
+
+.coluna p {
+    margin: 6px 0;
+    color: white;
+    line-height: 1.6;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.social-icons img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: #001f6e;
+    padding: 6px;
+}
+
+.rodape-direitos {
+    background-color: #001f6e;
+    color: white;
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 0.9em;
+    width: 200%;
+    transform: translateX(-25%);
+    margin: 0;
+    box-sizing: border-box;
 }
