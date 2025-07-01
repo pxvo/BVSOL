@@ -652,3 +652,50 @@ nav a:hover span {
     margin: 0;
     box-sizing: border-box;
 }
+
+.hero-logo {
+    width: 180px;
+    margin-bottom: 20px;
+}
+
+.destaque-economia {
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(251, 155, 42, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(251, 155, 42, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(251, 155, 42, 0);
+  }
+}
+
+.botao-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(90deg, #fb9b2a 0%, #ffd500 100%);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1em;
+  transition: transform 0.3s ease;
+  animation: pulse 2s infinite;
+}
+
+.botao-whatsapp img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
