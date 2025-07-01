@@ -1,3 +1,7 @@
+html, body {
+  overflow-x: hidden;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -588,81 +592,47 @@ nav a:hover span {
     position: relative;
     z-index: 1;
 }
+
+.hero-logo {
+  width: 180px;
+  margin-bottom: 20px;
+}
+
 .rodape {
-    background-color: #fb9b2a;
-    color: white;
-    width: 200%;
-    transform: translateX(-25%);
-    padding-top: 40px;
-    padding-bottom: 0;
-    margin: 0;
+  background-color: #fb9b2a;
+  color: white;
+  width: 100vw;
+  padding-top: 40px;
+  padding-bottom: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .rodape-conteudo {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 0 5% 40px;
-    box-sizing: border-box;
-}
-
-
-.coluna {
-    flex: 1;
-    min-width: 250px;
-    margin-bottom: 20px;
-}
-
-.coluna h3 {
-    font-size: 1.2em;
-    margin-bottom: 15px;
-    font-weight: bold;
-    color: white;
-}
-
-.coluna p {
-    margin: 6px 0;
-    color: white;
-    line-height: 1.6;
-}
-
-.social-icons {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.social-icons img {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background-color: #001f6e;
-    padding: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 40px 40px;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .rodape-direitos {
-    background-color: #001f6e;
-    color: white;
-    text-align: center;
-    padding: 15px 10px;
-    font-size: 0.9em;
-    width: 200%;
-    transform: translateX(-25%);
-    margin: 0;
-    box-sizing: border-box;
-}
-
-.hero-logo {
-    width: 180px;
-    margin-bottom: 20px;
+  background-color: #001f6e;
+  color: white;
+  text-align: center;
+  padding: 15px 10px;
+  font-size: 0.9em;
+  width: 100vw;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .destaque-economia {
-    font-weight: 600;
-    font-size: 1.1em;
-    margin-bottom: 30px;
-    color: #fff;
+  font-weight: 600;
+  font-size: 1.1em;
+  margin-bottom: 30px;
+  color: #fff;
 }
 
 @keyframes pulse {
@@ -698,4 +668,4 @@ nav a:hover span {
   width: 24px;
   height: 24px;
   margin-right: 10px;
-}
+}  
