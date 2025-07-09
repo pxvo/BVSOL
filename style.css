@@ -4,12 +4,12 @@
     --primary-blue: #1e40af;
     --primary-blue-light: #3b82f6;
     --primary-blue-dark: #1e3a8a;
-    
+
     /* Cores secundárias */
     --secondary-orange: #f59e0b;
     --secondary-orange-light: #fbbf24;
     --secondary-orange-dark: #d97706;
-    
+
     /* Cores neutras */
     --neutral-50: #f8fafc;
     --neutral-100: #f1f5f9;
@@ -21,25 +21,25 @@
     --neutral-700: #334155;
     --neutral-800: #1e293b;
     --neutral-900: #0f172a;
-    
+
     /* Cores de status */
     --success: #10b981;
     --warning: #f59e0b;
     --error: #ef4444;
-    
+
     /* Sombras */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-    
+
     /* Raios de borda */
     --radius-sm: 0.375rem;
     --radius-md: 0.5rem;
     --radius-lg: 0.75rem;
     --radius-xl: 1rem;
     --radius-2xl: 1.5rem;
-    
+
     /* Espaçamentos */
     --space-xs: 0.5rem;
     --space-sm: 0.75rem;
@@ -49,7 +49,8 @@
     --space-2xl: 3rem;
 }
 
-html, body {
+html,
+body {
     overflow-x: hidden;
 }
 
@@ -83,7 +84,7 @@ header::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(30, 64, 175, 0.95) 0%, rgba(30, 58, 138, 0.95) 100%);
+    background: linear-gradient(90deg, #0033a0 0%, #001f6e 100%);
     z-index: -1;
 }
 
@@ -145,9 +146,7 @@ nav a:hover {
 }
 
 .hero {
-    background: 
-        linear-gradient(135deg, rgba(30, 64, 175, 0.8) 0%, rgba(30, 58, 138, 0.6) 100%),
-        url('img/placasA.png') no-repeat center center;
+    background: url('img/placasA.png') no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
     padding: var(--space-2xl) var(--space-xl);
@@ -184,6 +183,7 @@ nav a:hover {
         opacity: 0;
         transform: translateY(50px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -272,7 +272,7 @@ nav a:hover {
 }
 
 .botao-whatsapp {
-    background: linear-gradient(135deg, #25d366 0%, #1fb855 100%);
+    background: linear-gradient(135deg, #15ce59 0%, #1fb855 100%);
     color: white;
     padding: var(--space-lg) var(--space-2xl);
     border: none;
@@ -326,14 +326,14 @@ nav a:hover {
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .form-orcamento:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -350,7 +350,7 @@ nav a:hover {
 
 .form-orcamento input:focus {
     outline: none;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .form-orcamento button {
@@ -507,7 +507,7 @@ nav a:hover span {
     background-color: #fff;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 300px;
     text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -515,7 +515,7 @@ nav a:hover span {
 
 .depoimento-item:hover {
     transform: translateY(-10px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -588,14 +588,14 @@ nav a:hover span {
     background-color: #fff;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .ajuda-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .ajuda-card h3 {
@@ -696,7 +696,7 @@ nav a:hover span {
 
 /* Rodapé */
 .rodape {
-    background-color: #001f6e;
+    background: linear-gradient(90deg, #0033a0 0%, #001f6e 100%);
     color: white;
     padding: 40px 0 20px;
 }
@@ -739,12 +739,14 @@ nav a:hover span {
 }
 
 .rodape-direitos {
-    text-align: center;
-    border-top: 1px solid #333;
-    margin-top: 30px;
-    padding-top: 20px;
-    color: #999;
-    font-size: 0.9em;
+  background: linear-gradient(90deg, #fb9b2a 0%, #d2981a 100%);
+  color: white;
+  text-align: center;
+  padding: 15px 10px;
+  font-size: 0.9em;
+  width: 100vw;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 /* WhatsApp Flutuante */
@@ -759,7 +761,7 @@ nav a:hover span {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     z-index: 1000;
     text-decoration: none;
@@ -767,7 +769,7 @@ nav a:hover span {
 
 .whatsapp-float:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .whatsapp-float img {
@@ -831,8 +833,13 @@ nav a:hover span {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .cotacao-container {
@@ -848,8 +855,15 @@ nav a:hover span {
 }
 
 @keyframes slideUp {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .cotacao-header {
@@ -949,8 +963,15 @@ nav a:hover span {
 }
 
 @keyframes messageSlide {
-    from { transform: translateX(-20px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    from {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 .chat-message.user {
@@ -1128,23 +1149,23 @@ nav a:hover span {
         width: 95%;
         max-height: 95vh;
     }
-    
+
     .cotacao-content {
         height: 350px;
     }
-    
+
     .chat-messages {
         max-height: 230px;
     }
-    
+
     .kit-card {
         padding: 12px;
     }
-    
+
     .kit-card h4 {
         font-size: 1em;
     }
-    
+
     .kit-info p {
         font-size: 0.85em;
     }
@@ -1317,11 +1338,11 @@ nav a:hover span {
         max-width: 450px;
         max-height: 90vh;
     }
-    
+
     .cotacao-content {
         height: 350px;
     }
-    
+
     .chat-messages {
         max-height: 220px;
         padding: var(--space-md);
@@ -1330,15 +1351,15 @@ nav a:hover span {
     .chat-input-area {
         padding: var(--space-md);
     }
-    
+
     .kit-card {
         padding: var(--space-md);
     }
-    
+
     .kit-card h4 {
         font-size: 1rem;
     }
-    
+
     .kit-info p {
         font-size: 0.85rem;
     }
@@ -1536,32 +1557,32 @@ nav a:hover span {
     .hero h1 {
         font-size: 1.4rem;
     }
-    
+
     .hero p {
         font-size: 0.85rem;
     }
-    
+
     .botao-cotacao,
     .botao-whatsapp {
         font-size: 0.8rem;
         padding: var(--space-xs) var(--space-sm);
     }
-    
+
     .destaque-economia {
         font-size: 0.8rem;
     }
-    
+
     .ajuda-card h3,
     .servico-item h3 {
         font-size: 0.95rem;
     }
-    
+
     .cotacao-container {
         width: 100%;
         height: 100vh;
         border-radius: 0;
     }
-    
+
     .cotacao-content {
         height: calc(100vh - 140px);
     }
@@ -1573,7 +1594,7 @@ nav a:hover span {
         grid-template-columns: 1fr !important;
         gap: 20px;
     }
-    
+
     .ajuda-card {
         margin-bottom: 0;
     }
@@ -1583,15 +1604,15 @@ nav a:hover span {
     .ajuda-cards {
         gap: 15px;
     }
-    
+
     .ajuda-card {
         padding: 20px;
     }
-    
+
     .ajuda-card h3 {
         font-size: 1.1em;
     }
-    
+
     .ajuda-card p {
         font-size: 0.95em;
     }
@@ -1609,6 +1630,7 @@ img {
 
 /* Melhorar toque em dispositivos móveis */
 @media (hover: none) and (pointer: coarse) {
+
     .faq-pergunta,
     .btn-enviar,
     .botao-cotacao,
@@ -1618,18 +1640,18 @@ img {
         touch-action: manipulation;
         -webkit-tap-highlight-color: transparent;
     }
-    
+
     .faq-pergunta {
         padding: var(--space-lg);
         min-height: 60px;
     }
-    
+
     .btn-enviar,
     .botao-cotacao,
     .botao-whatsapp {
         min-height: 48px;
     }
-    
+
     nav a {
         min-height: 44px;
         display: flex;
