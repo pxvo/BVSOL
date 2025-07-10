@@ -1936,7 +1936,6 @@ img {
         align-items: center;
         justify-content: center;
     }
-<<<<<<< HEAD
 }
 
 /* Estilos para ícones Lucide */
@@ -1967,6 +1966,3 @@ img {
 .servico-item:hover h3 [data-lucide] {
     transform: scale(1.1);
 }
-=======
-}
->>>>>>> ef3de69f60fdf5b7d018045039a0641d5e4996bf
