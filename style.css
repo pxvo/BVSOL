@@ -1966,3 +1966,25 @@ img {
 .servico-item:hover h3 [data-lucide] {
     transform: scale(1.1);
 }
+
+/*Sobre*/
+.sobre-nos {
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.sobre-nos h2 {
+    color: var(--primary-blue-dark);
+    margin-bottom: var(--space-md);
+    font-size: 2rem;
+    border-bottom: 2px solid var(--secondary-orange);
+    padding-bottom: 0.5rem;
+}
+
+.sobre-nos p, .sobre-nos li {
+    color: var(--neutral-700);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+}
