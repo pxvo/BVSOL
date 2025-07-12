@@ -1988,3 +1988,64 @@ img {
     line-height: 1.6;
     margin-bottom: var(--space-sm);
 }
+
+/*Fotos de Instalação*/
+.galeria-servicos {
+  padding: 60px 20px;
+  background-color: #f9fafb;
+  text-align: center;
+}
+
+.titulo-secao {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  color: var(--primary-blue-dark);
+  position: relative;
+}
+
+.titulo-secao::after {
+  content: '';
+  width: 60px;
+  height: 4px;
+  background: var(--secondary-orange);
+  display: block;
+  margin: 10px auto 0;
+  border-radius: var(--radius-sm);
+}
+
+.categoria-bloco {
+  margin-bottom: 60px;
+}
+
+.categoria-titulo {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary-blue-dark);
+  position: relative;
+}
+
+.categoria-titulo.residencial { color: var(--primary-blue); }
+.categoria-titulo.empresarial { color: var(--secondary-orange-dark); }
+.categoria-titulo.rural { color: #16a34a; }
+
+.galeria-imagens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.galeria-imagens img {
+  width: 360px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease;
+}
+
+.galeria-imagens img:hover {
+  transform: scale(1.05);
+}
