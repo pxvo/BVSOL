@@ -2049,3 +2049,56 @@ img {
 .galeria-imagens img:hover {
   transform: scale(1.05);
 }
+
+/*Financiamento*/
+.financiamento {
+  padding: 60px 20px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.financiamento h2 {
+  font-size: 2.5rem;
+  color: var(--primary-blue-dark);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.financiamento h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  margin: 10px auto 0;
+  background: var(--secondary-orange);
+  border-radius: var(--radius-sm);
+}
+
+.descricao-financiamento {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  font-size: 1.1rem;
+  color: var(--neutral-700);
+  line-height: 1.7;
+}
+
+.bancos-parceiros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.bancos-parceiros img {
+  height: 60px;
+  max-width: 160px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  filter: grayscale(30%);
+}
+
+.bancos-parceiros img:hover {
+  transform: scale(1.05);
+  filter: grayscale(0%);
+}
