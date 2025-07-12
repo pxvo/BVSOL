@@ -1874,3 +1874,139 @@ img {
 .servico-item:hover h3 [data-lucide] {
     transform: scale(1.1);
 }
+
+/*Sobre*/
+.sobre-nos {
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.sobre-nos h2 {
+    color: var(--primary-blue-dark);
+    margin-bottom: var(--space-md);
+    font-size: 2rem;
+    border-bottom: 2px solid var(--secondary-orange);
+    padding-bottom: 0.5rem;
+}
+
+.sobre-nos p, .sobre-nos li {
+    color: var(--neutral-700);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+}
+
+/*Fotos de Instalação*/
+.galeria-servicos {
+  padding: 60px 20px;
+  background-color: #f9fafb;
+  text-align: center;
+}
+
+.titulo-secao {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  color: var(--primary-blue-dark);
+  position: relative;
+}
+
+.titulo-secao::after {
+  content: '';
+  width: 60px;
+  height: 4px;
+  background: var(--secondary-orange);
+  display: block;
+  margin: 10px auto 0;
+  border-radius: var(--radius-sm);
+}
+
+.categoria-bloco {
+  margin-bottom: 60px;
+}
+
+.categoria-titulo {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary-blue-dark);
+  position: relative;
+}
+
+.categoria-titulo.residencial { color: var(--primary-blue); }
+.categoria-titulo.empresarial { color: var(--secondary-orange-dark); }
+.categoria-titulo.rural { color: #16a34a; }
+
+.galeria-imagens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.galeria-imagens img {
+  width: 360px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease;
+}
+
+.galeria-imagens img:hover {
+  transform: scale(1.05);
+}
+
+/*Financiamento*/
+.financiamento {
+  padding: 60px 20px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.financiamento h2 {
+  font-size: 2.5rem;
+  color: var(--primary-blue-dark);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.financiamento h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  margin: 10px auto 0;
+  background: var(--secondary-orange);
+  border-radius: var(--radius-sm);
+}
+
+.descricao-financiamento {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  font-size: 1.1rem;
+  color: var(--neutral-700);
+  line-height: 1.7;
+}
+
+.bancos-parceiros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.bancos-parceiros img {
+  height: 60px;
+  max-width: 160px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  filter: grayscale(30%);
+}
+
+.bancos-parceiros img:hover {
+  transform: scale(1.05);
+  filter: grayscale(0%);
+}
