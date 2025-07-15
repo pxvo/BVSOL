@@ -13,11 +13,18 @@
 </head>
 
 <body>
-  <header>
+  <header id="mainHeader">
     <div class="logo">
       <img src="/img/bvsol.png" alt="Logo BV SOL">
     </div>
-    <nav>
+    
+    <!-- Botão toggle apenas para mobile -->
+    <button class="nav-mobile-toggle" onclick="toggleMobileNav()" aria-label="Menu">
+      <i data-lucide="menu" id="navToggleIcon"></i>
+      <span>Menu</span>
+    </button>
+    
+    <nav id="mainNav" class="main-nav">
       <ul>
         <li><a href="#"><span>Início</span></a></li>
         <li><a href="#contato"><span>Contato</span></a></li>
