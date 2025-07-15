@@ -211,25 +211,6 @@ nav a:hover {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.destaque-economia {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: var(--radius-xl);
-    padding: var(--space-md) var(--space-lg);
-    margin: var(--space-xl) auto;
-    display: inline-flex;
-    align-items: center;
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: white;
-    box-shadow: var(--shadow-lg);
-}
-
-.destaque-economia i {
-    margin-right: var(--space-sm);
-}
-
 .botao-cotacao {
     background: linear-gradient(135deg, var(--secondary-orange) 0%, var(--secondary-orange-dark) 100%);
     color: white;
