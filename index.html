@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="google-reviews.js" defer></script>
   <script src="script.js" defer></script>
   <script>
     // Garantir que os ícones Lucide sejam inicializados
@@ -203,15 +204,33 @@
   </section>
 
   <section id="depoimentos" class="depoimentos">
-    <h2>Depoimentos de Clientes</h2>
-    <div class="depoimentos-lista">
-      <div class="depoimento-item">
-        <p>"Ótimo serviço! Recomendo a BV SOL."</p>
-        <p>- João Silva</p>
+    <h2>O que nossos clientes dizem</h2>
+
+    <!-- Container do Carrossel -->
+    <div class="reviews-carousel-container">
+      <div id="google-reviews">
+        <div class="loading-reviews">
+          <div class="loading-spinner"></div>
+          <p>Carregando avaliações...</p>
+        </div>
+        <!-- As avaliações serão carregadas aqui via JavaScript -->
       </div>
-      <div class="depoimento-item">
-        <p>"Excelente atendimento e suporte."</p>
-        <p>- Maria Oliveira</p>
+    </div>
+
+    <!-- Indicadores do Carrossel -->
+    <div class="carousel-controls">
+      <div class="carousel-indicators" id="carouselIndicators">
+        <!-- Indicadores serão criados dinamicamente -->
+      </div>
+    </div>
+
+    <!-- Controles de Autoplay -->
+    <div class="carousel-controls">
+      <div class="carousel-autoplay">
+        <span>Rotação automática:</span>
+        <button class="autoplay-btn active" id="autoplayBtn">
+          <i data-lucide="pause" id="autoplayIcon"></i>
+        </button>
       </div>
     </div>
   </section>
