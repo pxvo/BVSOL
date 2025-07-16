@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://bvsol.com.br/sitemap.xml
+
+# Disallow sensitive areas
+Disallow: /admin/
+Disallow: /*.log
+Disallow: /temp/
+
+# Allow important files
+Allow: /img/
+Allow: /style.css
+Allow: /script.js

@@ -1660,28 +1660,8 @@ nav a:hover span {
         font-size: 0.75rem;
     }
 
-    .cotacao-header.collapsed {
-        padding: 6px 12px;
-    }
-
     .header-title h3 {
         font-size: 0.9rem;
-    }
-
-    .cotacao-container.header-collapsed .cotacao-content {
-        height: 460px; /* Ainda mais espaço em telas pequenas */
-    }
-
-    .cotacao-container.header-collapsed .chat-messages {
-        max-height: 330px;
-    }
-
-    .cotacao-container.header-collapsed .kits-container {
-        max-height: 60vh;
-    }
-
-    .cotacao-container.header-collapsed .opcoes-valor {
-        max-height: 55vh;
     }
 
     /* Indicador visual de que é clicável */
@@ -1886,11 +1866,6 @@ nav a:hover span {
         min-height: auto;
     }
 
-    .cotacao-header.collapsed {
-        padding: 8px 15px;
-        background: transparent;
-    }
-
     .header-title h3 {
         font-size: 1rem;
     }
@@ -1899,24 +1874,8 @@ nav a:hover span {
         height: 350px;
     }
 
-    .cotacao-container.header-collapsed .cotacao-content {
-        height: 430px; /* Muito mais espaço quando header recolhido */
-    }
-
     .chat-messages {
         max-height: 230px;
-    }
-
-    .cotacao-container.header-collapsed .chat-messages {
-        max-height: 300px; /* Mais espaço para mensagens */
-    }
-
-    .cotacao-container.header-collapsed .kits-container {
-        max-height: 55vh; /* Mais espaço para kits */
-    }
-
-    .cotacao-container.header-collapsed .opcoes-valor {
-        max-height: 50vh; /* Mais espaço para opções */
     }
 
     .kit-card {
@@ -2668,25 +2627,6 @@ img {
 }
 
 /* Estado colapsado do header */
-.cotacao-header.collapsed {
-    padding: 8px 15px;
-    min-height: auto;
-    background: transparent;
-}
-
-.cotacao-header.collapsed .header-content {
-    display: none;
-}
-
-/* Ajustes no container quando header está colapsado */
-.cotacao-container.header-collapsed .cotacao-content {
-    height: calc(500px + 80px); /* Mais espaço quando header recolhido */
-}
-
-.cotacao-container.header-collapsed .chat-messages {
-    max-height: calc(100% - 60px);
-}
-
 /* Animação de pulso no botão para chamar atenção */
 @keyframes pulse-attention {
     0% {
@@ -2820,6 +2760,21 @@ img {
         font-size: 0.9rem;
         text-align: center;
     }
+}
+
+/* Estilos para imagens do WhatsApp */
+.botao-whatsapp img,
+.whatsapp-float img,
+.btn-whatsapp img {
+    transition: all 0.3s ease;
+    border-radius: 4px; /* Pequeno arredondamento */
+}
+
+.botao-whatsapp:hover img,
+.whatsapp-float:hover img,
+.btn-whatsapp:hover img {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
 }
 
 

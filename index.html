@@ -4,18 +4,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BV SOL - Energia Solar em Roraima. Financiamento até 100%, instalação profissional e economia de até 90% na conta de luz. Solicite seu orçamento!">
+  <meta name="keywords" content="energia solar, Roraima, placas solares, financiamento, economia, sustentabilidade">
+  <meta name="author" content="BV SOL Energia Solar">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bvsol.com.br/">
+  <meta property="og:title" content="BV SOL - Energia Solar em Roraima">
+  <meta property="og:description" content="Financie até 100% do seu projeto de energia solar. Economia de até 90% na conta de luz com instalação profissional.">
+  <meta property="og:image" content="img/bvsol.png">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://bvsol.com.br/">
+  <meta property="twitter:title" content="BV SOL - Energia Solar em Roraima">
+  <meta property="twitter:description" content="Financie até 100% do seu projeto de energia solar. Economia de até 90% na conta de luz.">
+  <meta property="twitter:image" content="img/bvsol.png">
+  
   <title>BV SOL - Energia Solar</title>
+  <link rel="icon" type="image/png" href="img/bvsol.png">
+  <link rel="apple-touch-icon" href="img/bvsol.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="script.js" defer></script>
+  <script>
+    // Garantir que os ícones Lucide sejam inicializados
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(() => {
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      }, 100);
+    });
+  </script>
 </head>
 
 <body>
   <header id="mainHeader">
     <div class="logo">
-      <img src="/img/bvsol.png" alt="Logo BV SOL">
+      <img src="img/bvsol.png" alt="Logo BV SOL">
     </div>
     
     <!-- Botão toggle apenas para mobile -->
@@ -26,7 +58,7 @@
     
     <nav id="mainNav" class="main-nav">
       <ul>
-        <li><a href="#"><span>Início</span></a></li>
+        <li><a href="#hero"><span>Início</span></a></li>
         <li><a href="#contato"><span>Contato</span></a></li>
         <li><a href="#servicos"><span>Serviços</span></a></li>
         <li><a href="sobre.html">Sobre</a></li>
@@ -37,7 +69,7 @@
     </div> -->
   </header>
 
-<section class="hero">
+<section id="hero" class="hero">
   <div class="hero-content">
     <h1>Energia sustentável<br>que cabe no seu bolso.</h1>
     <p>
@@ -45,13 +77,13 @@
       de uma energia sustentável que não agride o meio ambiente!
     </p>
     <a href="https://wa.me/5595991316410" target="_blank" class="botao-whatsapp">
-      <i data-lucide="message-circle" style="width: 24px; height: 24px;"></i>
+      <img src="img/wppV.png" alt="WhatsApp" style="width: 24px; height: 24px;">
       FALE CONOSCO NO WHATSAPP
     </a>
   </div>
 </section>
  
-  <section class="ajuda">
+  <section id="ajuda" class="ajuda">
     <h2>Como a <span class="bvsol-highlight">BVSOL</span> pode te ajudar!</h2>
     <p class="ajuda-sub"><strong>Minimize</strong> seu consumo de energia e <strong>não sofra</strong> os reajustes
       anuais.</p>
@@ -89,13 +121,13 @@
   <!-- <div class="financiamento-destaque">GARANTIA E LIMPEZA GRÁTIS</div> -->
 
   <div class="bancos-parceiros">
-    <img src="img/marca1.png" alt="Marca 1">
-    <img src="img/marca2.png" alt="Marca 2">
-    <img src="img/marca3.svg" alt="Marca 3">
-    <img src="img/marca4.png" alt="Marca 4">
-    <img src="img/marca5.png" alt="Marca 5">
-    <img src="img/marca6.png" alt="Marca 6">
-    <img src="img/marca7.png" alt="Marca 7">
+    <img src="img/marca1.png" alt="Marca 1" loading="lazy">
+    <img src="img/marca2.png" alt="Marca 2" loading="lazy">
+    <img src="img/marca3.svg" alt="Marca 3" loading="lazy">
+    <img src="img/marca4.png" alt="Marca 4" loading="lazy">
+    <img src="img/marca5.png" alt="Marca 5" loading="lazy">
+    <img src="img/marca6.png" alt="Marca 6" loading="lazy">
+    <img src="img/marca7.png" alt="Marca 7" loading="lazy">
   </div>
 </section>
 
@@ -112,11 +144,11 @@
   <div class="financiamento-destaque">FINANCIE AGORA SEM ENTRADA !!</div>
 
   <div class="bancos-parceiros">
-    <img src="img/banco1.png" alt="Banco 1">
-    <img src="img/banco2.png" alt="Banco 2">
-    <img src="img/banco3.png" alt="Banco 3">
-    <img src="img/banco4.png" alt="Banco 4">
-    <img src="img/banco5.png" alt="Banco 5">
+    <img src="img/banco1.png" alt="Banco 1" loading="lazy">
+    <img src="img/banco2.png" alt="Banco 2" loading="lazy">
+    <img src="img/banco3.png" alt="Banco 3" loading="lazy">
+    <img src="img/banco4.png" alt="Banco 4" loading="lazy">
+    <img src="img/banco5.png" alt="Banco 5" loading="lazy">
   </div>
 </section>
 
@@ -144,27 +176,27 @@
   <div class="categoria-bloco">
     <h3 class="categoria-titulo residencial">Residencial</h3>
     <div class="galeria-imagens">
-      <img src="img/residencial1.jpg" alt="Residencial 1">
-      <img src="img/residencial2.jpg" alt="Residencial 2">
-      <img src="img/residencial3.jpg" alt="Residencial 3">
+      <img src="img/residencial1.JPG" alt="Residencial 1" loading="lazy">
+      <img src="img/residencial2.JPG" alt="Residencial 2" loading="lazy">
+      <img src="img/residencial3.JPG" alt="Residencial 3" loading="lazy">
     </div>
   </div>
 
   <div class="categoria-bloco">
     <h3 class="categoria-titulo empresarial">Empresarial</h3>
     <div class="galeria-imagens">
-      <img src="img/empresarial1.jpg" alt="Empresarial 1">
-      <img src="img/empresarial2.jpg" alt="Empresarial 2">
-      <img src="img/empresarial3.JPG" alt="Empresarial 3">
+      <img src="img/empresarial1.jpg" alt="Empresarial 1" loading="lazy">
+      <img src="img/empresarial2.JPG" alt="Empresarial 2" loading="lazy">
+      <img src="img/empresarial3.JPG" alt="Empresarial 3" loading="lazy">
     </div>
   </div>
 
   <div class="categoria-bloco">
     <h3 class="categoria-titulo rural">Rural</h3>
     <div class="galeria-imagens">
-      <img src="img/rural1.jpg" alt="Rural 1">
-      <img src="img/rural2.jpeg" alt="Rural 2">
-      <img src="img/rural3.jpg" alt="Rural 3">
+      <img src="img/rural1.JPG" alt="Rural 1" loading="lazy">
+      <img src="img/rural2.JPEG" alt="Rural 2" loading="lazy">
+      <img src="img/rural3.JPG" alt="Rural 3" loading="lazy">
     </div>
   </div>
 </section>
@@ -184,7 +216,7 @@
     </div>
   </section>
 
-  <footer class="rodape">
+  <footer id="contato" class="rodape">
     <div class="rodape-conteudo">
       <div class="coluna">
         <h3>Contatos</h3>
@@ -213,7 +245,7 @@
 
   <a href="https://api.whatsapp.com/send/?phone=5595991316410&text&type=phone_number&app_absent=0"
     class="whatsapp-float" target="_blank" rel="noopener noreferrer">
-    <i data-lucide="message-circle" style="width: 30px; height: 30px; color: white;"></i>
+    <img src="img/wppV.png" alt="WhatsApp" style="width: 30px; height: 30px;">
   </a>
 
 </body>

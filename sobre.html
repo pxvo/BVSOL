@@ -3,25 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conheça a história da BV SOL, empresa especializada em energia solar em Roraima. Nossa missão, visão e valores para um futuro sustentável.">
+    <meta name="keywords" content="BV SOL, energia solar, Roraima, sobre nós, história, missão, visão">
+    <meta name="author" content="BV SOL Energia Solar">
+    
     <title>Sobre Nós - BV SOL Energia Solar</title>
+    <link rel="icon" type="image/png" href="img/bvsol.png">
+    <link rel="apple-touch-icon" href="img/bvsol.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js" defer></script>
+    <script>
+      // Garantir que os ícones Lucide sejam inicializados
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+          if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+          }
+        }, 100);
+      });
+    </script>
 </head>
 <body>
-    <header>
+    <header id="mainHeader">
         <div class="logo">
-            <img src="/img/bvsol.png" alt="Logo BV SOL">
+            <img src="img/bvsol.png" alt="Logo BV SOL">
         </div>
-        <nav>
+        
+        <!-- Botão toggle apenas para mobile -->
+        <button class="nav-mobile-toggle" onclick="toggleMobileNav()" aria-label="Menu">
+            <i data-lucide="menu" id="navToggleIcon"></i>
+            <span>Menu</span>
+        </button>
+        
+        <nav id="mainNav" class="main-nav">
             <ul>
-                <li><a href="index.html">Início</a></li>
-                <li><a href="#contato">Contato</a></li>
-                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="index.html#hero"><span>Início</span></a></li>
+                <li><a href="#contato"><span>Contato</span></a></li>
+                <li><a href="index.html#servicos"><span>Serviços</span></a></li>
                 <li><a href="sobre.html">Sobre</a></li>
             </ul>
         </nav>
+        <!-- <div class="login">
+          <a href="#">Já tem uma conta?</a>
+        </div> -->
     </header>
 
     <main class="sobre-nos">
@@ -68,7 +97,7 @@
         </section>
     </main>
 
-<footer class="rodape">
+<footer id="contato" class="rodape">
   <div class="rodape-conteudo">
     <div class="coluna">
       <h3>Contatos</h3>
@@ -94,6 +123,11 @@
     <p>© BVSOL Energia Solar – Copyright 2025. Todos os direitos reservados.</p>
   </div>
 </footer>
+
+<a href="https://api.whatsapp.com/send/?phone=5595991316410&text&type=phone_number&app_absent=0"
+  class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+  <img src="img/wppV.png" alt="WhatsApp" style="width: 30px; height: 30px;">
+</a>
 
 </body>
 </html>
