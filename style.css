@@ -146,7 +146,7 @@ nav a:hover {
 }
 
 .hero {
-    background: url('img/placasA.png') no-repeat center center;
+    background: url('img/placas.png') no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
     padding: var(--space-2xl) var(--space-xl);
@@ -3951,5 +3951,45 @@ img {
     }
 }
 
+/* Seção de Endereço */
+.address-section p {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
 
+/* Container da imagem e do mapa */
+.address-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Foto da fachada */
+.faixada img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Mapa */
+.map {
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+/* Responsivo: em telas pequenas, empilha */
+@media (max-width: 768px) {
+    .address-content {
+        flex-direction: column;
+    }
+}
+
+/* Título "Onde estamos" */
+.address-section h2 {
+    text-align: center;
+    font-size: 2rem; /* Aumente conforme necessário */
+    margin-bottom: 15px;
+}
 
