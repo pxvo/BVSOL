@@ -618,6 +618,13 @@ nav a:hover span {
     margin-bottom: 1rem;
 }
 
+.review-avatar-container {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
 .review-avatar,
 .review-avatar-placeholder {
     width: 48px;
@@ -639,6 +646,9 @@ nav a:hover span {
     justify-content: center;
     font-weight: 600;
     font-size: 1.2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .review-info {
@@ -3851,7 +3861,7 @@ img {
     }
 }
 
-/* Desktop - Grid 2x2 centrado */
+/* Desktop - Grid 2x2 centrado com altura fixa */
 @media (min-width: 1025px) {
     .kits-container-compact {
         grid-template-columns: 1fr 1fr;
@@ -3859,20 +3869,27 @@ img {
         gap: var(--space-md);
         max-width: 550px;
         margin: 0 auto;
+        height: 280px; /* Altura fixa para evitar problemas de scroll */
+        overflow: visible;
     }
     
     .kit-card-compact {
         min-height: 120px;
+        max-height: 130px;
         padding: var(--space-md);
+        overflow: hidden;
     }
     
     .kit-title-compact {
         font-size: 0.85rem;
+        line-height: 1.1;
+        margin-bottom: 4px;
     }
     
     .spec-row {
         font-size: 0.75rem;
         gap: 6px;
+        line-height: 1.2;
     }
     
     .kit-price-compact {
@@ -3881,6 +3898,7 @@ img {
     
     .kit-ideal-compact {
         font-size: 0.7rem;
+        line-height: 1.1;
     }
 }
 

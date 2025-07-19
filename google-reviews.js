@@ -27,7 +27,7 @@ class GoogleReviewsWidget {
                 rating: 5,
                 text: "Excelente atendimento da BV SOL! Instalaram o sistema solar na minha casa e já estou vendo a economia na conta de luz. Equipe muito profissional e prazo cumprido à risca. Recomendo!",
                 time: 1704067200,
-                profile_photo_url: null,
+                profile_photo_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
                 relative_time_description: "há 2 semanas"
             },
             {
@@ -35,7 +35,7 @@ class GoogleReviewsWidget {
                 rating: 5,
                 text: "Investimento que vale muito a pena! A BV SOL explicou todo o processo, ajudou com o financiamento e a instalação foi impecável. Minha conta de energia caiu mais de 80%. Super recomendo!",
                 time: 1703808000,
-                profile_photo_url: null,
+                profile_photo_url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face",
                 relative_time_description: "há 3 semanas"
             },
             {
@@ -43,7 +43,7 @@ class GoogleReviewsWidget {
                 rating: 5,
                 text: "Ótimo custo-benefício! Empresa séria, materiais de qualidade e suporte pós-venda excelente. Já são 8 meses com o sistema funcionando perfeitamente. Muito satisfeito com a BV SOL!",
                 time: 1703462400,
-                profile_photo_url: null,
+                profile_photo_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
                 relative_time_description: "há 1 mês"
             },
             {
@@ -51,7 +51,7 @@ class GoogleReviewsWidget {
                 rating: 5,
                 text: "Desde a visita técnica até a homologação, tudo funcionou perfeitamente. A equipe da BV SOL é muito atenciosa e esclareceu todas as minhas dúvidas. O sistema está gerando mais energia do que esperava!",
                 time: 1702857600,
-                profile_photo_url: null,
+                profile_photo_url: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
                 relative_time_description: "há 1 mês"
             },
             {
@@ -59,7 +59,7 @@ class GoogleReviewsWidget {
                 rating: 5,
                 text: "Empresa muito competente! Fizeram a instalação na minha empresa e o resultado superou as expectativas. A economia na conta de energia é impressionante. Parabéns à toda equipe da BV SOL!",
                 time: 1702252800,
-                profile_photo_url: null,
+                profile_photo_url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop&crop=face",
                 relative_time_description: "há 1 mês"
             },
             {
@@ -67,7 +67,7 @@ class GoogleReviewsWidget {
                 rating: 4,
                 text: "Muito satisfeita com o serviço! A instalação foi rápida e eficiente. A única observação é que gostaria de ter mais informações sobre a manutenção, mas no geral, recomendo a BV SOL.",
                 time: 1701648000,
-                profile_photo_url: null,
+                profile_photo_url: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop&crop=face",
                 relative_time_description: "há 2 meses"
             }
         ];
@@ -264,9 +264,21 @@ class GoogleReviewsWidget {
     }
 
     createReviewHTML(review) {
+        // Criar avatar com múltiplos fallbacks
+        const initialLetter = review.author_name.charAt(0).toUpperCase();
+        const fallbackAvatar = `<div class="review-avatar-placeholder">${initialLetter}</div>`;
+        
         const avatar = review.profile_photo_url ? 
-            `<img src="${review.profile_photo_url}" alt="${review.author_name}" class="review-avatar">` :
-            `<div class="review-avatar-placeholder">${review.author_name.charAt(0)}</div>`;
+            `<div class="review-avatar-container">
+                <img src="${review.profile_photo_url}" 
+                     alt="${review.author_name}" 
+                     class="review-avatar" 
+                     onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                     style="display:none;">
+                ${fallbackAvatar}
+             </div>` :
+            fallbackAvatar;
 
         const timeDisplay = review.relative_time_description || this.formatDate(review.time);
         
