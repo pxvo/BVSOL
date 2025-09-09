@@ -79,6 +79,56 @@ src="https://www.facebook.com/tr?id=1195422355409912&ev=PageView&noscript=1"
 
   gtag('config', 'AW-16888285809');
 </script>
+
+<!-- Event snippet for Contato via Whatsapp conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-16888285809/1W1PCLHBoq8aEPGU-_Q-',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
+
+<!-- Event snippet for Compra conversion page -->
+<script>
+  gtag('event', 'conversion', {
+      'send_to': 'AW-16888285809/jrB1CIrPqqEaEPGU-_Q-',
+      'value': 1.0,
+      'currency': 'BRL',
+      'transaction_id': ''
+  });
+</script>
+
+<!-- Event snippet for Contato pelo whatsapp criado 02/07/2025 conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-16888285809/YfNKCLWpqegaEPGU-_Q-',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
+
+<!-- Event snippet for campanha agosto-setembro conversion page -->
+<script>
+  gtag('event', 'conversion', {'send_to': 'AW-16888285809/ivp_COSe74gbEPGU-_Q-'});
+</script>
+
 </head>
 
 <body>
