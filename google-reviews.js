@@ -1,25 +1,35 @@
 /**
  * Sistema de Avaliações Google para BV SOL com Carrossel
- * Versão: 3.0 - Integração Real com Google Places API
+ * Versão: 4.0 - Integração com Variáveis de Ambiente (.env)
  * Autor: Sistema BV SOL
  */
 
 class GoogleReviewsWidget {
     constructor(options = {}) {
-        // Configurações da API do Google
-        this.apiKey = options.apiKey || 'AIzaSyA4GTkGaoUNjtrgR2AXwN8H3RZVgQNsoB0';
-        this.placeId = options.placeId || null; // Será encontrado automaticamente
-        this.businessName = options.businessName || 'BV SOL';
-        this.businessAddress = options.businessAddress || 'Boa Vista, Roraima, Brasil';
+        // Configurações padrão (serão sobrescritas pelo .env)
+        this.defaultConfig = {
+            apiKey: null,
+            businessName: 'BV SOL',
+            businessAddress: 'Boa Vista, Roraima, Brasil',
+            maxReviews: 6,
+            enableGoogleAPI: false,
+            placeId: null,
+            corsProxy: 'https://api.allorigins.win/raw?url=',
+            cacheExpiryHours: 24,
+            debugMode: false
+        };
         
-        // Configurações do widget
+        // Mesclar configurações padrão com opções passadas
+        this.config = { ...this.defaultConfig, ...options };
+        
+        // Propriedades do widget
         this.container = options.container || '#google-reviews';
-        this.maxReviews = options.maxReviews || 6;
-        this.enableGoogleAPI = options.enableGoogleAPI !== false; // Habilitado por padrão agora
+        this.placeId = this.config.placeId;
+        this.reviews = [];
         
         // Sistema de cache
         this.cacheKey = 'bvsol_google_reviews_cache';
-        this.cacheExpiry = 24 * 60 * 60 * 1000; // 24 horas
+        this.cacheExpiry = this.config.cacheExpiryHours * 60 * 60 * 1000; // Converter horas para ms
         
         // Configurações do carrossel
         this.currentSlide = 0;
@@ -88,19 +98,71 @@ class GoogleReviewsWidget {
 
     async init() {
         try {
+            // Carregar configurações do ambiente primeiro
+            await this.loadEnvironmentConfig();
+            
             // Mostrar loading
             this.showLoading();
             
-            if (this.enableGoogleAPI && this.apiKey) {
+            if (this.config.enableGoogleAPI && this.config.apiKey) {
                 await this.loadRealGoogleReviews();
             } else {
-                console.log('API do Google desabilitada, usando avaliações de fallback');
+                if (this.config.debugMode) {
+                    console.log('📝 API do Google desabilitada ou API Key não configurada, usando avaliações de fallback');
+                }
                 this.loadFallbackReviews();
             }
         } catch (error) {
             console.warn('Erro ao carregar avaliações do Google, usando fallback:', error);
             this.loadFallbackReviews();
         }
+    }
+
+    /**
+     * Carrega configurações do arquivo .env se disponível
+     */
+    async loadEnvironmentConfig() {
+        try {
+            // Verificar se o ENV loader está disponível
+            if (typeof window !== 'undefined' && window.ENV) {
+                await window.ENV.loadEnvironment();
+                const envConfig = window.ENV.getGoogleReviewsConfig();
+                
+                // Mesclar configurações do .env com as existentes
+                this.config = { ...this.config, ...envConfig };
+                
+                // Atualizar propriedades específicas
+                this.cacheExpiry = this.config.cacheExpiryHours * 60 * 60 * 1000;
+                
+                if (this.config.debugMode) {
+                    console.log('✅ Configurações carregadas do .env');
+                    console.table({
+                        'API Key': this.config.apiKey ? '✅ Configurada' : '❌ Não configurada',
+                        'Google API': this.config.enableGoogleAPI ? '✅ Habilitada' : '❌ Desabilitada',
+                        'Empresa': this.config.businessName,
+                        'Endereço': this.config.businessAddress,
+                        'Max Reviews': this.config.maxReviews,
+                        'Cache (horas)': this.config.cacheExpiryHours
+                    });
+                }
+                
+                // Validar configuração
+                const validation = window.ENV.validateConfig();
+                if (!validation.valid && this.config.debugMode) {
+                    console.group('⚠️ Problemas de Configuração:');
+                    validation.issues.forEach(issue => console.warn('❌', issue));
+                    console.groupEnd();
+                }
+                
+                return true;
+            }
+        } catch (error) {
+            if (this.config.debugMode) {
+                console.warn('⚠️ Não foi possível carregar configurações do .env:', error.message);
+            }
+        }
+        
+        return false;
     }
 
     showLoading() {
@@ -136,7 +198,9 @@ class GoogleReviewsWidget {
 
             // Se não tiver Place ID, buscar primeiro
             if (!this.placeId) {
-                console.log('Buscando Place ID para:', this.businessName);
+                if (this.config.debugMode) {
+                    console.log('📍 Buscando Place ID para:', this.config.businessName);
+                }
                 this.placeId = await this.findPlaceId();
             }
 
@@ -144,11 +208,13 @@ class GoogleReviewsWidget {
                 throw new Error('Place ID não encontrado para o negócio');
             }
 
-            console.log('Buscando avaliações para Place ID:', this.placeId);
+            if (this.config.debugMode) {
+                console.log('🔍 Buscando avaliações para Place ID:', this.placeId);
+            }
             const reviewsData = await this.fetchGoogleReviews();
             
             if (reviewsData && reviewsData.reviews && reviewsData.reviews.length > 0) {
-                this.reviews = reviewsData.reviews.slice(0, this.maxReviews).map(review => this.formatGoogleReview(review));
+                this.reviews = reviewsData.reviews.slice(0, this.config.maxReviews).map(review => this.formatGoogleReview(review));
                 this.businessRating = reviewsData.rating;
                 this.totalReviews = reviewsData.totalReviews;
                 
@@ -160,25 +226,28 @@ class GoogleReviewsWidget {
                     timestamp: Date.now()
                 });
                 
-                console.log(`Carregadas ${this.reviews.length} avaliações do Google`);
+                if (this.config.debugMode) {
+                    console.log(`✅ Carregadas ${this.reviews.length} avaliações do Google`);
+                }
                 this.setupCarousel();
             } else {
                 throw new Error('Nenhuma avaliação encontrada');
             }
         } catch (error) {
-            console.error('Erro ao carregar avaliações reais:', error);
+            if (this.config.debugMode) {
+                console.error('❌ Erro ao carregar avaliações reais:', error);
+            }
             throw error;
         }
     }
 
     async findPlaceId() {
-        const query = encodeURIComponent(`${this.businessName} ${this.businessAddress}`);
-        const url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${query}&inputtype=textquery&fields=place_id,name&key=${this.apiKey}`;
+        const query = encodeURIComponent(`${this.config.businessName} ${this.config.businessAddress}`);
+        const url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${query}&inputtype=textquery&fields=place_id,name&key=${this.config.apiKey}`;
         
         try {
             // Usar CORS proxy para contornar limitações do browser
-            const corsProxy = 'https://api.allorigins.win/raw?url=';
-            const response = await fetch(corsProxy + encodeURIComponent(url));
+            const response = await fetch(this.config.corsProxy + encodeURIComponent(url));
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -188,26 +257,31 @@ class GoogleReviewsWidget {
             
             if (data.status === 'OK' && data.candidates && data.candidates.length > 0) {
                 const placeId = data.candidates[0].place_id;
-                console.log('Place ID encontrado:', placeId);
+                if (this.config.debugMode) {
+                    console.log('✅ Place ID encontrado:', placeId);
+                }
                 return placeId;
             } else {
-                console.warn('Resposta da API:', data);
+                if (this.config.debugMode) {
+                    console.warn('⚠️ Resposta da API:', data);
+                }
                 throw new Error(`Negócio não encontrado. Status: ${data.status}`);
             }
         } catch (error) {
-            console.error('Erro ao buscar Place ID:', error);
+            if (this.config.debugMode) {
+                console.error('❌ Erro ao buscar Place ID:', error);
+            }
             throw error;
         }
     }
 
     async fetchGoogleReviews() {
         const fields = 'reviews,rating,user_ratings_total,name';
-        const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${this.placeId}&fields=${fields}&key=${this.apiKey}`;
+        const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${this.placeId}&fields=${fields}&key=${this.config.apiKey}`;
         
         try {
             // Usar CORS proxy
-            const corsProxy = 'https://api.allorigins.win/raw?url=';
-            const response = await fetch(corsProxy + encodeURIComponent(url));
+            const response = await fetch(this.config.corsProxy + encodeURIComponent(url));
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -226,7 +300,9 @@ class GoogleReviewsWidget {
                 throw new Error(`Google API Error: ${data.status} - ${data.error_message || 'Erro desconhecido'}`);
             }
         } catch (error) {
-            console.error('Erro na API do Google:', error);
+            if (this.config.debugMode) {
+                console.error('❌ Erro na API do Google:', error);
+            }
             throw error;
         }
     }
@@ -493,27 +569,15 @@ class GoogleReviewsWidget {
 
 // Auto-inicialização quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', function() {
-    // Configuração das avaliações - API REAL ATIVADA
+    // Configuração das avaliações - Agora usando variáveis de ambiente
     const reviewsWidget = new GoogleReviewsWidget({
-        // API do Google ATIVADA com sua API Key
-        apiKey: 'AIzaSyA4GTkGaoUNjtrgR2AXwN8H3RZVgQNsoB0',
-        businessName: 'BV SOL',
-        businessAddress: 'Boa Vista, Roraima, Brasil',
-        enableGoogleAPI: true, // API ATIVADA!
-        
-        container: '#google-reviews',
-        maxReviews: 6
+        // As configurações serão carregadas automaticamente do arquivo .env
+        // Configurações de fallback caso .env não esteja disponível:
+        container: '#google-reviews'
     });
     
     // Inicializar widget
     reviewsWidget.init();
-    
-    // Log para debug
-    console.log('Sistema de avaliações Google inicializado com API real');
-    console.log('Empresa:', reviewsWidget.businessName);
-    console.log('Localização:', reviewsWidget.businessAddress);
-    console.log('API Key configurada:', reviewsWidget.apiKey ? 'Sim' : 'Não');
-    console.log('API habilitada:', reviewsWidget.enableGoogleAPI);
 });
 
 // Exportar para uso global se necessário
@@ -524,12 +588,25 @@ window.testarGoogleAPI = async function() {
     console.log('🔍 Testando integração com Google Places API...');
     
     try {
-        const testWidget = new GoogleReviewsWidget({
-            apiKey: 'AIzaSyA4GTkGaoUNjtrgR2AXwN8H3RZVgQNsoB0',
-            businessName: 'BV SOL',
-            businessAddress: 'Boa Vista, Roraima, Brasil',
-            enableGoogleAPI: true
-        });
+        // Criar widget de teste usando configurações do .env
+        const testWidget = new GoogleReviewsWidget();
+        await testWidget.loadEnvironmentConfig();
+        
+        if (!testWidget.config.enableGoogleAPI) {
+            console.warn('⚠️ API do Google está desabilitada no .env');
+            return {
+                success: false,
+                message: 'API do Google está desabilitada. Configure ENABLE_GOOGLE_API=true no arquivo .env'
+            };
+        }
+        
+        if (!testWidget.config.apiKey) {
+            console.error('❌ API Key não configurada');
+            return {
+                success: false,
+                message: 'API Key não encontrada. Configure GOOGLE_PLACES_API_KEY no arquivo .env'
+            };
+        }
         
         // Teste 1: Buscar Place ID
         console.log('📍 Buscando Place ID...');
@@ -583,7 +660,7 @@ window.testarGoogleAPI = async function() {
 
 // Mostrar instruções no console
 console.log(`
-🚀 BVSOL Google Reviews Widget - API Real Ativada!
+🚀 BVSOL Google Reviews Widget - API Real com Variáveis de Ambiente!
 
 Para testar a integração, execute no console:
 testarGoogleAPI()
@@ -596,13 +673,16 @@ Funcionalidades implementadas:
 ✅ Suporte a imagens de perfil dos usuários
 ✅ Carrossel responsivo
 ✅ Rating e texto das avaliações
+✅ Configuração via arquivo .env
 
-Sua API Key: AIzaSyA4GTkGaoUNjtrgR2AXwN8H3RZVgQNsoB0
-Empresa: BV SOL
-Localização: Boa Vista, Roraima, Brasil
+Configuração:
+📁 Configure suas credenciais no arquivo .env
+🔑 API Key carregada do .env
+🏢 Empresa configurada via BUSINESS_NAME
+📍 Localização via BUSINESS_ADDRESS
 `);
 
-console.log('🔧 Widget inicializado. Verfique o elemento #google-reviews na página.');
+console.log('🔧 Widget inicializado. Verifique o elemento #google-reviews na página.');
 
 // Exportar para uso global se necessário
 window.GoogleReviewsWidget = GoogleReviewsWidget;
