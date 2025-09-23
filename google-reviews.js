@@ -1,16 +1,25 @@
 /**
  * Sistema de Avaliações Google para BV SOL com Carrossel
- * Versão: 2.0
+ * Versão: 3.0 - Integração Real com Google Places API
  * Autor: Sistema BV SOL
  */
 
 class GoogleReviewsWidget {
     constructor(options = {}) {
-        this.placeId = options.placeId || 'ChIJRRRRRRRRRRRRRRRRRRRRRR'; // Substitua pelo Place ID real
-        this.apiKey = options.apiKey || null; // Substitua pela sua API Key
+        // Configurações da API do Google
+        this.apiKey = options.apiKey || 'AIzaSyA4GTkGaoUNjtrgR2AXwN8H3RZVgQNsoB0';
+        this.placeId = options.placeId || null; // Será encontrado automaticamente
+        this.businessName = options.businessName || 'BV SOL';
+        this.businessAddress = options.businessAddress || 'Boa Vista, Roraima, Brasil';
+        
+        // Configurações do widget
         this.container = options.container || '#google-reviews';
         this.maxReviews = options.maxReviews || 6;
-        this.enableGoogleAPI = options.enableGoogleAPI || false; // Desabilitado por padrão
+        this.enableGoogleAPI = options.enableGoogleAPI !== false; // Habilitado por padrão agora
+        
+        // Sistema de cache
+        this.cacheKey = 'bvsol_google_reviews_cache';
+        this.cacheExpiry = 24 * 60 * 60 * 1000; // 24 horas
         
         // Configurações do carrossel
         this.currentSlide = 0;
@@ -79,9 +88,13 @@ class GoogleReviewsWidget {
 
     async init() {
         try {
-            if (this.enableGoogleAPI && this.apiKey && this.placeId) {
-                await this.loadGoogleReviews();
+            // Mostrar loading
+            this.showLoading();
+            
+            if (this.enableGoogleAPI && this.apiKey) {
+                await this.loadRealGoogleReviews();
             } else {
+                console.log('API do Google desabilitada, usando avaliações de fallback');
                 this.loadFallbackReviews();
             }
         } catch (error) {
@@ -90,24 +103,176 @@ class GoogleReviewsWidget {
         }
     }
 
-    async loadGoogleReviews() {
-        const corsProxy = 'https://api.allorigins.win/raw?url=';
-        const googleUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${this.placeId}&fields=reviews,rating,user_ratings_total&key=${this.apiKey}`;
-        
+    showLoading() {
+        const container = document.querySelector(this.container);
+        if (container) {
+            container.innerHTML = `
+                <div class="reviews-loading" style="text-align: center; padding: 40px;">
+                    <div class="loading-spinner" style="border: 4px solid #f3f3f3; border-top: 4px solid #ffa500; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
+                    <p style="color: #666; margin: 0;">Carregando avaliações do Google...</p>
+                </div>
+                <style>
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                </style>
+            `;
+        }
+    }
+
+    async loadRealGoogleReviews() {
         try {
-            const response = await fetch(corsProxy + encodeURIComponent(googleUrl));
-            const data = await response.json();
+            // Verificar cache primeiro
+            const cachedData = this.getCachedReviews();
+            if (cachedData) {
+                console.log('Carregando avaliações do cache');
+                this.reviews = cachedData.reviews;
+                this.businessRating = cachedData.rating;
+                this.totalReviews = cachedData.totalReviews;
+                this.setupCarousel();
+                return;
+            }
+
+            // Se não tiver Place ID, buscar primeiro
+            if (!this.placeId) {
+                console.log('Buscando Place ID para:', this.businessName);
+                this.placeId = await this.findPlaceId();
+            }
+
+            if (!this.placeId) {
+                throw new Error('Place ID não encontrado para o negócio');
+            }
+
+            console.log('Buscando avaliações para Place ID:', this.placeId);
+            const reviewsData = await this.fetchGoogleReviews();
             
-            if (data.result && data.result.reviews) {
-                this.reviews = data.result.reviews.slice(0, this.maxReviews);
+            if (reviewsData && reviewsData.reviews && reviewsData.reviews.length > 0) {
+                this.reviews = reviewsData.reviews.slice(0, this.maxReviews).map(review => this.formatGoogleReview(review));
+                this.businessRating = reviewsData.rating;
+                this.totalReviews = reviewsData.totalReviews;
+                
+                // Salvar no cache
+                this.saveToCache({
+                    reviews: this.reviews,
+                    rating: this.businessRating,
+                    totalReviews: this.totalReviews,
+                    timestamp: Date.now()
+                });
+                
+                console.log(`Carregadas ${this.reviews.length} avaliações do Google`);
                 this.setupCarousel();
             } else {
-                throw new Error('Dados inválidos da API');
+                throw new Error('Nenhuma avaliação encontrada');
             }
         } catch (error) {
-            console.warn('Falha na API do Google, usando fallback:', error);
-            this.loadFallbackReviews();
+            console.error('Erro ao carregar avaliações reais:', error);
+            throw error;
         }
+    }
+
+    async findPlaceId() {
+        const query = encodeURIComponent(`${this.businessName} ${this.businessAddress}`);
+        const url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${query}&inputtype=textquery&fields=place_id,name&key=${this.apiKey}`;
+        
+        try {
+            // Usar CORS proxy para contornar limitações do browser
+            const corsProxy = 'https://api.allorigins.win/raw?url=';
+            const response = await fetch(corsProxy + encodeURIComponent(url));
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.status === 'OK' && data.candidates && data.candidates.length > 0) {
+                const placeId = data.candidates[0].place_id;
+                console.log('Place ID encontrado:', placeId);
+                return placeId;
+            } else {
+                console.warn('Resposta da API:', data);
+                throw new Error(`Negócio não encontrado. Status: ${data.status}`);
+            }
+        } catch (error) {
+            console.error('Erro ao buscar Place ID:', error);
+            throw error;
+        }
+    }
+
+    async fetchGoogleReviews() {
+        const fields = 'reviews,rating,user_ratings_total,name';
+        const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${this.placeId}&fields=${fields}&key=${this.apiKey}`;
+        
+        try {
+            // Usar CORS proxy
+            const corsProxy = 'https://api.allorigins.win/raw?url=';
+            const response = await fetch(corsProxy + encodeURIComponent(url));
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.status === 'OK') {
+                return {
+                    reviews: data.result.reviews || [],
+                    rating: data.result.rating,
+                    totalReviews: data.result.user_ratings_total,
+                    businessName: data.result.name
+                };
+            } else {
+                throw new Error(`Google API Error: ${data.status} - ${data.error_message || 'Erro desconhecido'}`);
+            }
+        } catch (error) {
+            console.error('Erro na API do Google:', error);
+            throw error;
+        }
+    }
+
+    formatGoogleReview(googleReview) {
+        // Garantir que temos dados válidos
+        return {
+            author_name: googleReview.author_name || 'Usuário Anônimo',
+            rating: googleReview.rating || 5,
+            text: googleReview.text || 'Ótimo atendimento!',
+            time: googleReview.time || Date.now() / 1000,
+            profile_photo_url: googleReview.profile_photo_url || null,
+            relative_time_description: googleReview.relative_time_description || 'há algum tempo',
+            author_url: googleReview.author_url || null,
+            language: googleReview.language || 'pt-BR'
+        };
+    }
+
+    getCachedReviews() {
+        try {
+            const cached = localStorage.getItem(this.cacheKey);
+            if (cached) {
+                const data = JSON.parse(cached);
+                const isExpired = Date.now() - data.timestamp > this.cacheExpiry;
+                
+                if (!isExpired && data.reviews && data.reviews.length > 0) {
+                    return data;
+                }
+            }
+        } catch (error) {
+            console.warn('Erro ao ler cache:', error);
+        }
+        return null;
+    }
+
+    saveToCache(data) {
+        try {
+            localStorage.setItem(this.cacheKey, JSON.stringify(data));
+        } catch (error) {
+            console.warn('Erro ao salvar cache:', error);
+        }
+    }
+
+    async loadGoogleReviews() {
+        // Método mantido para compatibilidade - redireciona para o novo método
+        return this.loadRealGoogleReviews();
     }
 
     loadFallbackReviews() {
@@ -328,12 +493,13 @@ class GoogleReviewsWidget {
 
 // Auto-inicialização quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', function() {
-    // Configuração das avaliações
+    // Configuração das avaliações - API REAL ATIVADA
     const reviewsWidget = new GoogleReviewsWidget({
-        // Para ativar a API do Google, configure estas variáveis:
-        // placeId: 'SEU_PLACE_ID_AQUI',
-        // apiKey: 'SUA_API_KEY_AQUI',
-        // enableGoogleAPI: true,
+        // API do Google ATIVADA com sua API Key
+        apiKey: 'AIzaSyA4GTkGaoUNjtrgR2AXwN8H3RZVgQNsoB0',
+        businessName: 'BV SOL',
+        businessAddress: 'Boa Vista, Roraima, Brasil',
+        enableGoogleAPI: true, // API ATIVADA!
         
         container: '#google-reviews',
         maxReviews: 6
@@ -341,7 +507,102 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Inicializar widget
     reviewsWidget.init();
+    
+    // Log para debug
+    console.log('Sistema de avaliações Google inicializado com API real');
+    console.log('Empresa:', reviewsWidget.businessName);
+    console.log('Localização:', reviewsWidget.businessAddress);
+    console.log('API Key configurada:', reviewsWidget.apiKey ? 'Sim' : 'Não');
+    console.log('API habilitada:', reviewsWidget.enableGoogleAPI);
 });
+
+// Exportar para uso global se necessário
+window.GoogleReviewsWidget = GoogleReviewsWidget;
+
+// Função de teste para verificar a integração
+window.testarGoogleAPI = async function() {
+    console.log('🔍 Testando integração com Google Places API...');
+    
+    try {
+        const testWidget = new GoogleReviewsWidget({
+            apiKey: 'AIzaSyA4GTkGaoUNjtrgR2AXwN8H3RZVgQNsoB0',
+            businessName: 'BV SOL',
+            businessAddress: 'Boa Vista, Roraima, Brasil',
+            enableGoogleAPI: true
+        });
+        
+        // Teste 1: Buscar Place ID
+        console.log('📍 Buscando Place ID...');
+        const placeId = await testWidget.findPlaceId();
+        
+        if (placeId) {
+            console.log('✅ Place ID encontrado:', placeId);
+            testWidget.placeId = placeId;
+            
+            // Teste 2: Buscar avaliações
+            console.log('⭐ Buscando avaliações...');
+            const reviewsData = await testWidget.fetchGoogleReviews();
+            
+            if (reviewsData && reviewsData.reviews) {
+                console.log('✅ Avaliações encontradas:', reviewsData.reviews.length);
+                console.log('🏪 Nome do negócio:', reviewsData.businessName);
+                console.log('⭐ Rating médio:', reviewsData.rating);
+                console.log('📊 Total de avaliações:', reviewsData.totalReviews);
+                
+                // Mostrar algumas avaliações
+                reviewsData.reviews.slice(0, 3).forEach((review, index) => {
+                    console.log(`📝 Avaliação ${index + 1}:`, {
+                        autor: review.author_name,
+                        rating: review.rating,
+                        texto: review.text?.substring(0, 100) + '...',
+                        data: review.relative_time_description
+                    });
+                });
+                
+                return {
+                    success: true,
+                    message: 'Integração funcionando perfeitamente!',
+                    data: reviewsData
+                };
+            } else {
+                throw new Error('Nenhuma avaliação encontrada');
+            }
+        } else {
+            throw new Error('Place ID não encontrado');
+        }
+        
+    } catch (error) {
+        console.error('❌ Erro no teste:', error);
+        return {
+            success: false,
+            message: error.message,
+            error: error
+        };
+    }
+};
+
+// Mostrar instruções no console
+console.log(`
+🚀 BVSOL Google Reviews Widget - API Real Ativada!
+
+Para testar a integração, execute no console:
+testarGoogleAPI()
+
+Funcionalidades implementadas:
+✅ Busca automática de Place ID
+✅ Carregamento de avaliações reais do Google
+✅ Sistema de cache (24h)
+✅ Fallback automático em caso de erro
+✅ Suporte a imagens de perfil dos usuários
+✅ Carrossel responsivo
+✅ Rating e texto das avaliações
+
+Sua API Key: AIzaSyA4GTkGaoUNjtrgR2AXwN8H3RZVgQNsoB0
+Empresa: BV SOL
+Localização: Boa Vista, Roraima, Brasil
+`);
+
+console.log('🔧 Widget inicializado. Verfique o elemento #google-reviews na página.');
 
 // Exportar para uso global se necessário
 window.GoogleReviewsWidget = GoogleReviewsWidget;
